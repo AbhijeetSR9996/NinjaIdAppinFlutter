@@ -1,43 +1,104 @@
 import 'package:flutter/material.dart';
-import 'quote.dart';
-import 'quote_card.dart';
 
 void main() => runApp(MaterialApp(
-  home: QuoteList(),
+  home: NinjaCard(),
 ));
 
-class QuoteList extends StatefulWidget {
+class NinjaCard extends StatefulWidget {
   @override
-  _QuoteListState createState() => _QuoteListState();
+  State<NinjaCard> createState() => _NinjaCardState();
 }
 
-class _QuoteListState extends State<QuoteList> {
-  List<Quote> quotes = [
-    Quote(author: 'RATAN TATA',text: 'Life is like a roller-coaster. Enjoy the ride'),
-    Quote(author: 'RATAN TATA',text: 'Something is better than nothing'),
-    Quote(author: 'RATAN TATA',text: 'Do learning. Do mistakes')
-  ];
-
+class _NinjaCardState extends State<NinjaCard> {
+  int ninjaLevel = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      backgroundColor: Colors.grey[900],
       appBar: AppBar(
-        title: Text('Awesome Quotes'),
+        title: Text('Ninja ID Card'),
         centerTitle: true,
-        backgroundColor: Colors.redAccent,
+        backgroundColor: Colors.grey[850],
+        elevation: 0,
       ),
-      body: Column(
-      children: quotes.map((quote) => QuoteCard(
-        quote: quote,
-        delete: () {
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
           setState(() {
-            quotes.remove(quote);
+            ninjaLevel += 1;
           });
-        }
-      )).toList(),
-      )
+        },
+        child: Icon(Icons.add),
+        backgroundColor: Colors.grey[900],
+      ),
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(30, 40, 30, 0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Center(
+              child: CircleAvatar(
+                backgroundImage: AssetImage('assets/cat.jpg'),
+                radius: 40,
+              ),
+            ),
+            Divider(
+              height: 90,
+              color: Colors.grey[800],
+            ),
+            Text(
+              'NAME',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2,
+              ),
+            ),
+            SizedBox(height: 10,),
+            Text(
+              'Chun-li',
+              style: TextStyle(
+                  color: Colors.amberAccent[200],
+                  letterSpacing: 2,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 30,),
+            Text(
+              'CURRENT NINJA LEVEL',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 2,
+              ),
+            ),
+            SizedBox(height: 10,),
+            Text(
+              '$ninjaLevel',
+              style: TextStyle(
+                  color: Colors.amberAccent[200],
+                  letterSpacing: 2,
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(height: 30,),
+            Row(
+              children: <Widget>[
+                Icon(
+                  Icons.email,
+                  color: Colors.grey[400],
+                ),
+                SizedBox(width: 10,),
+                Text('chun.li@theninja.co.in',
+                  style: TextStyle(
+                      color: Colors.grey[400],
+                      fontSize: 18,
+                      letterSpacing: 1
+                  ),)
+              ],
+            )
+          ],
+        ),
+      ),
     );
   }
 }
-
